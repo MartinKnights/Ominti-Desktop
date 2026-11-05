@@ -24,6 +24,7 @@
 #   ./install.sh --dry-run                     # print the plan, change nothing
 #   ./install.sh --no-plugins                 # skip DMS plugin install
 #   ./install.sh --session-default niri       # make Niri the login default
+#   ./install.sh --terminal ghostty           # emulator package (default alacritty), or none
 #   ./install.sh --help
 #
 # Idempotent: safe to re-run. Existing configuration is backed up
@@ -37,6 +38,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROFILE=""
 INSTALL_PLUGINS=1
 SESSION_DEFAULT="keep"
+TERMINAL_CHOICE="alacritty"
 DRY_RUN=0
 OMINTY_CLI="$REPO_DIR/ominty-core/cli/ominty"
 
@@ -69,6 +71,14 @@ resolve_layers() {
   # dms is built from source (see DMS_BUILD below), not taken from OBS: the
   # OBS package is a newer, incompatible shell generation.
   OBS_PACKAGES=$(layer_packages obs dms)
+
+  # Alacritty and Ghostty are alternatives in the manifest, and the emulator is
+  # a user choice (--terminal). Drop both here and install only the chosen one
+  # in install_terminal_choice(). Without this both would be installed.
+  APT_PACKAGES="$(printf '%s\n' "$APT_PACKAGES" \
+    | grep -vxE 'alacritty|ghostty' | sed '/^$/d' || true)"
+  OBS_PACKAGES="$(printf '%s\n' "$OBS_PACKAGES" \
+    | grep -vxE 'alacritty|ghostty' | sed '/^$/d' || true)"
 }
 
 # quickshell needs its own apt-get call with an explicit target release, so it
@@ -102,6 +112,13 @@ die()  { printf '\033[1;31m[ERROR]\033[0m %s\n' "$*" >&2; exit 1; }
 plan() { printf '\033[1;35m[DRY ]\033[0m %s\n' "$*"; }
 
 have() { command -v "$1" >/dev/null 2>&1; }
+
+terminal_layer_selected() {
+  case " $LAYERS " in
+    *" terminal "*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
 # Run a command, or describe it instead when --dry-run is active. Every
 # mutating step goes through this so a dry run touches nothing.
@@ -169,6 +186,25 @@ apt_install_resilient() {  # apt_install_resilient <package>...
   run sudo apt-get install -y "${available[@]}"
 }
 
+install_terminal_choice() {
+  # The manifest lists alacritty and ghostty as alternatives; resolve_layers
+  # removes both from the layer lists. Install the user's choice (either of
+  # those, or any other emulator package available from the configured APT
+  # sources).
+  terminal_layer_selected || return 0
+  if [ "$TERMINAL_CHOICE" = "none" ]; then
+    return 0
+  fi
+  apt_install_resilient "$TERMINAL_CHOICE"
+  # Do not point the desktop at an emulator that did not install; niri's
+  # bundled .deb guarantees alacritty is present.
+  if [ "$DRY_RUN" -eq 0 ] && ! have "$TERMINAL_CHOICE"; then
+    warn "$TERMINAL_CHOICE did not install; keeping alacritty for Super+Enter."
+    TERMINAL_CHOICE="alacritty"
+    apt_install_resilient alacritty
+  fi
+}
+
 ensure_backports() {
   have_repo_line "trixie-backports" && return 0
   say "Enabling trixie-backports (required for quickshell)..."
@@ -229,6 +265,8 @@ while [ $# -gt 0 ]; do
     --no-plugins) INSTALL_PLUGINS=0; shift ;;
     --session-default)
       SESSION_DEFAULT="${2:?--session-default needs niri or keep}"; shift 2 ;;
+    --terminal)
+      TERMINAL_CHOICE="${2:?--terminal needs a package name (e.g. alacritty, ghostty) or none}"; shift 2 ;;
     -h|--help)
       awk 'NR>1 && /^#/ { sub(/^# ?/, ""); print; next } NR>1 { exit }' "$0"
       exit 0 ;;
@@ -299,6 +337,15 @@ case "$SESSION_DEFAULT" in
   *) die "--session-default must be 'niri' or 'keep' (got '$SESSION_DEFAULT')." ;;
 esac
 
+case "$TERMINAL_CHOICE" in
+  none) : ;;
+  ""|*[!a-z0-9+.-]*)
+    die "--terminal must be 'none' or a package name (e.g. alacritty, ghostty, kitty)." ;;
+esac
+if [ "$TERMINAL_CHOICE" != "alacritty" ] && ! terminal_layer_selected; then
+  warn "--terminal $TERMINAL_CHOICE has no effect: the 'terminal' layer is not selected."
+fi
+
 # --- sudo: ask once, keep it alive through the builds ----------------------
 # The source builds can run for half an hour. Without this the sudo timestamp
 # expires and the next apt call prompts on the TTY, which looks like a hang
@@ -325,12 +372,14 @@ if [ "$FAMILY" = "ubuntu" ] || [ "$FAMILY" = "mint-ubuntu" ]; then
 
   # Best effort: the apt-sourced layer packages that also exist on Ubuntu.
   # quickshell/dms/matugen/ghostty are built here or unavailable, so excluded.
-  APT_BEST_EFFORT="$(layer_packages apt quickshell)"
+  APT_BEST_EFFORT="$(layer_packages apt quickshell \
+    | grep -vxE 'alacritty|ghostty' | sed '/^$/d' || true)"
   if [ -n "$APT_BEST_EFFORT" ]; then
     say "Installing remaining layer packages (best effort)…"
     # shellcheck disable=SC2086
     apt_install_resilient $APT_BEST_EFFORT
   fi
+  install_terminal_choice
 else
   # --- 1. apt repositories (Debian/LMDE) ------------------------------------
   ensure_backports
@@ -355,6 +404,7 @@ else
   apt_install_resilient $APT_PACKAGES
   # shellcheck disable=SC2086
   [ -z "$OBS_PACKAGES" ] || apt_install_resilient $OBS_PACKAGES
+  install_terminal_choice
 
   # Local .debs first: they need sudo, and the builds below can run for half
   # an hour, after which the sudo timestamp would have expired.
@@ -410,7 +460,10 @@ case " $LAYERS " in
     if ! have zellij; then
       if [ -x "$REPO_DIR/scripts/install-zellij.sh" ]; then
         say "Installing zellij from the upstream release..."
-        run bash "$REPO_DIR/scripts/install-zellij.sh" \
+        # Pin to the release the shipped config.kdl is validated against.
+        # Override with OMINTY_ZELLIJ_VERSION (e.g. "latest").
+        run env OMINTY_ZELLIJ_VERSION="${OMINTY_ZELLIJ_VERSION:-0.43.1}" \
+          bash "$REPO_DIR/scripts/install-zellij.sh" \
           || warn "zellij install failed; the terminal layer will report it missing."
       fi
     fi
@@ -586,6 +639,103 @@ if [ "$SESSION_DEFAULT" = "niri" ]; then
       printf '[Desktop]\nSession=niri\n' > "$HOME/.dmrc"
     fi
     say "Niri is now the default session; other sessions stay selectable."
+  fi
+fi
+
+# --- 4a3. terminal profile (Starship + Zellij + chosen emulator) -----------
+# Everything here belongs to the optional `terminal` layer. Installing without
+# that layer leaves the user's prompt, shell rc, terminal emulator and Zellij
+# configuration completely untouched.
+install_shell_integration() {
+  local snippet="$HOME/.config/ominty/shell.bash"
+  local rc="$HOME/.bashrc"
+  local begin="# >>> ominty shell >>>"
+  local end="# <<< ominty shell <<<"
+
+  backup_if_changed "$REPO_DIR/configs/terminal/shell/ominty.bash" "$snippet"
+  run cp "$REPO_DIR/configs/terminal/shell/ominty.bash" "$snippet"
+
+  if [ -f "$rc" ] && grep -qF -- "$begin" "$rc"; then
+    say "Ominty shell integration already in ~/.bashrc."
+    return 0
+  fi
+  [ -f "$rc" ] || run touch "$rc"
+  backup_existing "$rc"
+  if [ "$DRY_RUN" -eq 1 ]; then
+    plan "append the Ominty shell integration block to ~/.bashrc"
+  else
+    {
+      printf '\n%s\n' "$begin"
+      printf '%s\n' '[ -f "$HOME/.config/ominty/shell.bash" ] && . "$HOME/.config/ominty/shell.bash"'
+      printf '%s\n' "$end"
+    } >> "$rc"
+  fi
+}
+
+if terminal_layer_selected; then
+  say "Deploying the terminal profile (Starship, Zellij, ${TERMINAL_CHOICE})..."
+  run mkdir -p ~/.config/zellij/themes ~/.config/zellij/layouts ~/.config/ominty
+
+  # Starship prompt.
+  backup_existing ~/.config/starship.toml
+  run cp "$REPO_DIR/configs/terminal/starship.toml" ~/.config/starship.toml
+
+  # Zellij: the full keybind configuration, its themes, and a portable default
+  # layout. The author's own layout opens personal paths and tools, so only the
+  # portable one ships.
+  backup_existing ~/.config/zellij/config.kdl
+  run cp "$REPO_DIR/configs/terminal/zellij/config.kdl" ~/.config/zellij/config.kdl
+  for f in "$REPO_DIR"/configs/terminal/zellij/themes/*.kdl; do
+    backup_if_changed "$f" ~/.config/zellij/themes/"$(basename "$f")"
+    run cp "$f" ~/.config/zellij/themes/
+  done
+  backup_existing ~/.config/zellij/layouts/default.kdl
+  run cp "$REPO_DIR/configs/terminal/zellij/layouts/default.kdl" \
+    ~/.config/zellij/layouts/default.kdl
+
+  # Emulator configuration. Only Alacritty ships one; Ghostty and any other
+  # terminal keep their own config (`--terminal none` means the emulator is the
+  # user's too).
+  if [ "$TERMINAL_CHOICE" = "alacritty" ]; then
+    run mkdir -p ~/.config/alacritty
+    backup_existing ~/.config/alacritty/alacritty.toml
+    run cp "$REPO_DIR/configs/terminal/alacritty/alacritty.toml" \
+      ~/.config/alacritty/alacritty.toml
+  fi
+
+  # Super+Enter resolves the `terminal` role from apps.toml, so keep it in step
+  # with --terminal. `none` leaves the role alone: the user's own emulator has
+  # a name Ominty cannot guess.
+  if [ "$TERMINAL_CHOICE" = "none" ]; then
+    say "No emulator configured (--terminal none); point [apps] terminal in ~/.config/ominty/apps.toml at your own terminal for Super+Enter."
+  elif [ -f ~/.config/ominty/apps.toml ]; then
+    current_terminal="$(awk -F= '/^terminal[[:space:]]*=/{
+      gsub(/[[:space:]"]/, "", $2); print $2; exit
+    }' ~/.config/ominty/apps.toml)"
+    if [ "$current_terminal" != "$TERMINAL_CHOICE" ]; then
+      backup_existing ~/.config/ominty/apps.toml
+      if [ "$DRY_RUN" -eq 1 ]; then
+        plan "set terminal = \"$TERMINAL_CHOICE\" in ~/.config/ominty/apps.toml"
+      else
+        sed -i "s/^terminal[[:space:]]*=.*/terminal = \"$TERMINAL_CHOICE\"/" \
+          ~/.config/ominty/apps.toml
+      fi
+    fi
+  fi
+
+  # Starship + Zellij are wired in through a managed snippet, never by editing
+  # the body of ~/.bashrc.
+  install_shell_integration
+
+  # MesloLGM Nerd Font for the prompt and glyphs (best effort; not packaged in
+  # Debian 13).
+  if [ -x "$REPO_DIR/scripts/install-terminal-font.sh" ]; then
+    if [ "$DRY_RUN" -eq 1 ]; then
+      plan "bash scripts/install-terminal-font.sh   # Meslo Nerd Font (best effort)"
+    else
+      bash "$REPO_DIR/scripts/install-terminal-font.sh" \
+        || warn "Meslo Nerd Font install failed; the prompt falls back to another font."
+    fi
   fi
 fi
 

@@ -183,6 +183,7 @@ Optional choices, and the exact switch:
 | Choice | How to apply |
 | --- | --- |
 | `layers` | `--layers "desktop tts …"` |
+| `terminal.emulator` | `--terminal alacritty` (default), `--terminal ghostty`, another emulator package such as `kitty`, or `--terminal none`. Only meaningful when `terminal` is in `--layers`; ask it then, in the same pass as `layers`. |
 | `plugins.dms` | `--no-plugins` (there is no plugins layer) |
 | `tts.enabled` | include or omit `tts` in `--layers` |
 | `desktop.shell_overlay` | no flag — it is applied automatically when the patch matches the built shell |
@@ -220,7 +221,7 @@ clear message instead of hanging later; hand the command to the user.
 
 ```sh
 set -o pipefail
-./install.sh --layers "<chosen>" [--session-default niri] 2>&1 | tee "$HOME/ominty-install-$(date +%F).log"
+./install.sh --layers "<chosen>" [--terminal alacritty] [--session-default niri] 2>&1 | tee "$HOME/ominty-install-$(date +%F).log"
 echo "installer exit: ${PIPESTATUS[0]}"
 ```
 

@@ -285,9 +285,65 @@ This adds `/etc/apt/sources.list.d/danklinux.list` plus the matching keyring in
 |---|---|
 | `--profile surface-book-1` | Apply the Surface Book 1 hardware profile (2× scale output, dGPU script). |
 | `--layers "desktop tts terminal editor cli containers browser"` | Choose which layers to install. `tts` is optional; drop it to skip the read-aloud stack. |
+| `--terminal <name>\|none` | Terminal emulator for the optional `terminal` layer: `alacritty` (default), `ghostty`, another APT package (e.g. `kitty`, `foot`), or `none` to keep your own but still deploy the Starship/Zellij profile. |
 | `--no-plugins` | Skip the DMS plugin installation step. |
 | `--session-default niri` | Make Niri the default login session (`~/.dmrc`, backup kept; other sessions still selectable). |
 | `--help` | Show usage. |
+
+### Terminal profile (optional)
+
+The `terminal` layer ships a shell profile (Starship prompt, Zellij, and one
+terminal emulator). It is optional like every layer: omit `terminal` from
+`--layers` and none of the files below are touched and this layer installs no
+emulator (the bundled Niri `.deb` may still pull Alacritty — see the note
+below).
+
+When the layer is selected, `install.sh` deploys:
+
+| File | Contents |
+|---|---|
+| `~/.config/starship.toml` | pastel powerline prompt |
+| `~/.config/zellij/config.kdl` | keybindings, `nord` theme, built-in plugins only |
+| `~/.config/zellij/themes/nord.kdl`, `gruvbox.kdl` | themes |
+| `~/.config/zellij/layouts/default.kdl` | portable single-shell layout (no personal paths) |
+| `~/.config/alacritty/alacritty.toml` | Alacritty font, colors and fullscreen (chosen emulator only) |
+| `~/.config/ominty/shell.bash` | Starship init and Zellij autostart, sourced from `~/.bashrc` |
+
+Choose the emulator with `--terminal`:
+
+| Value | Effect |
+|---|---|
+| `alacritty` (default) | Install Alacritty, deploy its configuration, set `[apps] terminal = "alacritty"`. |
+| `ghostty` | Install Ghostty from the AvengeMedia OBS and set `[apps] terminal = "ghostty"`; Ghostty keeps your own config. |
+| another package | Install that APT package (for example `kitty` or `foot`), keep its own configuration, and set `[apps] terminal` to it. |
+| `none` | Install no emulator of its own; still deploy Starship, Zellij and the shell snippet. Point `[apps] terminal` in `~/.config/ominty/apps.toml` at your terminal. |
+
+> The bundled Niri `.deb` declares `alacritty` as a dependency, so Alacritty is
+> present even when you choose `ghostty` or `none`. `--terminal` decides which
+> emulator Ominty configures and which one `Super+Enter` launches, not what the
+> Niri package pulls in. On Ubuntu-family systems Ghostty has no package, so
+> choosing it falls back to Alacritty with a warning.
+
+`app.terminal.open` (`Super+Enter`) reads that `terminal` role, so the chosen
+emulator is what the desktop launches.
+
+Zellij autostarts only in a desktop terminal Ominty recognises (Alacritty,
+Ghostty, Kitty, WezTerm, Foot, Konsole, or a VTE-based terminal such as GNOME
+Terminal/Tilix), and never inside Zellij, tmux, a Herdr pane, or over SSH (Herdr
+panes inherit `ALACRITTY_WINDOW_ID`, and an unguarded autostart would recurse).
+Set `OMINTY_ZELLIJ_AUTOSTART=0` to keep Starship without the autostart. The
+`~/.bashrc` hook is a small block between `# >>> ominty shell >>>` markers;
+re-running the installer does not duplicate it.
+
+The prompt uses **MesloLGM Nerd Font**, which Debian 13 does not package.
+`scripts/install-terminal-font.sh` downloads the Meslo release from Nerd Fonts
+into `~/.local/share/fonts` and refreshes fontconfig; the installer runs it best
+effort. If the download fails the prompt falls back to another monospace font —
+re-run the script later. Every replaced file is backed up first.
+
+Zellij is installed from the upstream release, pinned to **0.43.1** — the
+version this `config.kdl` is validated against. Set
+`OMINTY_ZELLIJ_VERSION=latest` to follow upstream instead.
 
 ## 3. First login
 

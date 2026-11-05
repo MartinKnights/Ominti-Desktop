@@ -70,6 +70,33 @@ grep -qF "setup-ai.sh" docs/AGENT-INSTALL.md \
     && ok "AI setup is documented as the final phase" \
     || bad "AI setup (scripts/setup-ai.sh) is not documented in both files"
 
+section "Terminal profile"
+for f in configs/terminal/starship.toml \
+         configs/terminal/alacritty/alacritty.toml \
+         configs/terminal/zellij/config.kdl \
+         configs/terminal/zellij/layouts/default.kdl \
+         configs/terminal/shell/ominty.bash; do
+    [ -f "$f" ] \
+        && ok "terminal profile ships $f" \
+        || bad "terminal profile is missing $f"
+done
+grep -qF -- "--terminal" docs/INSTALL.md \
+    && grep -qF -- "--terminal" docs/AGENT-INSTALL.md \
+    && grep -qF -- "--terminal" AGENTS.md \
+    && ok "--terminal is documented in INSTALL, AGENT-INSTALL and AGENTS" \
+    || bad "--terminal is not documented in INSTALL, AGENT-INSTALL and AGENTS"
+if grep -qE '/home/|herdr|ttt|Daily-Tasks' \
+        configs/terminal/zellij/layouts/default.kdl; then
+    bad "portable zellij layout contains machine-specific paths or commands"
+else
+    ok "portable zellij layout has no machine-specific paths"
+fi
+if grep -qE 'location="(https?|file):' configs/terminal/zellij/config.kdl; then
+    bad "zellij config loads a non-built-in plugin"
+else
+    ok "zellij config uses built-in plugins only"
+fi
+
 section "Referenced scripts exist"
 missing_scripts=0
 while IFS= read -r ref; do

@@ -31,7 +31,7 @@ only for `mint-debian`; Ubuntu-based Mint is `mint-ubuntu`.
 | `quickshell` | Debian `trixie-backports` | **built from source** — needs Qt ≥ 6.6 (Ubuntu 24.04 ships 6.4.2) |
 | `dms` | **built from source** (pinned commit) | **built from source** (the same pinned commit) |
 | `matugen` | AvengeMedia OBS | **built from source** (Rust/cargo) |
-| `ghostty` | AvengeMedia OBS | not installed by default (alacritty is) |
+| `ghostty` | AvengeMedia OBS | not packaged; `--terminal ghostty` falls back to alacritty with a warning |
 | `niri` | bundled `.deb` | bundled `.deb`, **plus undeclared runtime deps** |
 
 DMS is source-built on **both** families, not just Ubuntu. The motion/glow

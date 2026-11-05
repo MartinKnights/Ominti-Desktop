@@ -23,6 +23,14 @@ machine-specific assumptions.
 The installer reports DMS as `ominty-pinned+<short-sha>`; the shell build id is
 the value in `core/internal/shellembed/dist/.dankrev`.
 
+The optional terminal profile lives in `configs/terminal/`: Starship, Alacritty,
+Zellij (`config.kdl`, `themes/`, a portable `layouts/default.kdl`) and the
+`shell/ominty.bash` snippet. Keep it portable — no personal paths, no personal
+Zellij layouts, and only built-in `zellij:*` plugins — because the installer
+deploys it to every machine that selects the `terminal` layer. The prompt names
+**MesloLGM Nerd Font**; `scripts/install-terminal-font.sh` fetches it best
+effort because Debian 13 packages no Nerd Font.
+
 ## Bumping DMS
 
 1. Pick the commit. Check the shell layout first: the overlay patch targets

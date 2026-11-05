@@ -136,7 +136,8 @@ verification, with `scripts/setup-ai.sh` (Ollama, Pi, or none). The installer
 leaves `default_provider = "none"` so nothing about the desktop depends on a
 model download or credentials.
 
-`--layers`, `--no-plugins` and `--session-default` are the installer flags.
+`--layers`, `--terminal`, `--no-plugins` and `--session-default` are the
+installer flags.
 `config.migration` has none: the installer always backs up and replaces, so if
 the user wants to keep their configuration, stop and use the migration
 assessment. **`llm.provider` is not asked during the install** — AI is the final
@@ -144,8 +145,9 @@ phase, after verification, with `scripts/setup-ai.sh`. The exact mapping is in
 [`docs/AGENT-INSTALL.md`](docs/AGENT-INSTALL.md) Phase 4; follow that rather
 than guessing.
 
-Optional choices (`layers`, `plugins.dms`, `desktop.shell_overlay`,
-`tts.enabled`) may be inferred from the machine, but confirm before acting.
+Optional choices (`layers`, `terminal.emulator`, `plugins.dms`,
+`desktop.shell_overlay`, `tts.enabled`) may be inferred from the machine, but
+confirm before acting.
 
 Never edit the repository to record an answer.
 
@@ -168,6 +170,7 @@ Show it to the user and wait for a go-ahead, then:
 | Flag | Effect |
 | --- | --- |
 | `--layers "<ids>"` | Space-separated layer ids; invalid ids list the valid ones |
+| `--terminal <name>\|none` | Emulator package for the optional `terminal` layer (default `alacritty`; `ghostty`, `kitty`, `foot`… work too); `none` keeps your own |
 | `--dry-run` | Print the plan; change nothing |
 | `--no-plugins` | Skip DMS plugins entirely |
 | `--profile <name>` | Apply a hardware profile from `profiles/` |
