@@ -8,7 +8,7 @@ import qs.Common
 import qs.Widgets
 import qs.Modules.Plugins
 
-// Ominty Dictionary — DMS popup over the omi-dict service
+// Omi Dictionary — DMS popup over the omi-dict service
 // (Omi Dictionary Service spec §14–§18, §21).
 //
 // Holds NO lookup logic: it shells out to `omi-dict` (the contract) and
@@ -270,7 +270,7 @@ PluginComponent {
                     Layout.fillWidth: true
                     spacing: Theme.spacingM
                     StyledText {
-                        text: "Ominty Dictionary"
+                        text: "Omi Dictionary"
                         font.pixelSize: Theme.fontSizeLarge
                         font.weight: Font.Bold
                         color: Theme.surfaceText

@@ -1,4 +1,4 @@
-# Ominty AI configuration — portable default.
+# Omi AI configuration — portable default.
 #
 # AI is configured at the END of setup, by scripts/setup-ai.sh, after the
 # desktop itself has been verified. Until then the default is "none", so no AI

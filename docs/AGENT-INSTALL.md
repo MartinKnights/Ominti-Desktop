@@ -316,7 +316,7 @@ systemctl --user daemon-reload && systemctl --user restart dms.service
 ```
 
 Then ask the user to confirm what a machine cannot: the accent glow, the spring
-animation, and the six Ominty keys (`Shift+Alt+M`, `Ctrl+Shift+A`,
+animation, and the six Omi keys (`Shift+Alt+M`, `Ctrl+Shift+A`,
 `Super+Alt+O`, `Super+Alt+T`, `Ctrl+Alt+R`, `Super+S`).
 
 ---

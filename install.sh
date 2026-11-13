@@ -656,7 +656,7 @@ install_shell_integration() {
   run cp "$REPO_DIR/configs/terminal/shell/ominty.bash" "$snippet"
 
   if [ -f "$rc" ] && grep -qF -- "$begin" "$rc"; then
-    say "Ominty shell integration already in ~/.bashrc."
+    say "Ominti-Desktop shell integration already in ~/.bashrc."
     return 0
   fi
   [ -f "$rc" ] || run touch "$rc"
@@ -764,7 +764,7 @@ run install -m 0755 "$REPO_DIR/configs/Scripts/script_command_centre.sh" \
 run ln -sf "$REPO_DIR/omi-media/bin/omi-media" ~/.local/bin/omi-media
 run ln -sf "$REPO_DIR/omi-dictionary/bin/omi-dict" ~/.local/bin/omi-dict
 
-# Ominty Media discovers playlists by directory, so the tree has to exist
+# Omi Media discovers playlists by directory, so the tree has to exist
 # before the launcher can show anything. Without this the popup opens empty
 # and the user has no hint where to put files.
 if [ "$DRY_RUN" -eq 1 ]; then
@@ -773,7 +773,7 @@ else
   mkdir -p ~/Playlist/Audio ~/Playlist/Courses ~/Playlist/Music ~/Playlist/Video
   if [ ! -f ~/Playlist/README.txt ]; then
     cat > ~/Playlist/README.txt <<'PLAYLIST_README'
-Ominty Media — playlist folders
+Omi Media — playlist folders
 ================================
 
 Every subfolder here is a tab in the launcher (Shift+Alt+M):

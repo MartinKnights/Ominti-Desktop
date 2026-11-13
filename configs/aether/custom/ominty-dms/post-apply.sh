@@ -36,5 +36,5 @@ dms ipc call wallpaper set "$wp"
 echo "wallpaper set exit=$?"
 
 if command -v notify-send >/dev/null 2>&1; then
-    notify-send -a Aether "Ominty theme applied" "Desktop recoloured from $(basename "$wp")" 2>/dev/null || true
+    notify-send -a Aether "Ominti-Desktop theme applied" "Desktop recoloured from $(basename "$wp")" 2>/dev/null || true
 fi

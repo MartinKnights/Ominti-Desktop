@@ -153,13 +153,13 @@ machine:
 
 | Cinnamon name | Chord | Command |
 | --- | --- | --- |
-| Ominty Scripts | `Super+S` | `~/Scripts/script_command_centre.sh` |
-| Ominty Reader (selection) | `Ctrl+Alt+S` | `~/bin/read-selection` |
+| Omi Scripts | `Super+S` | `~/Scripts/script_command_centre.sh` |
+| Omi Reader (selection) | `Ctrl+Alt+S` | `~/bin/read-selection` |
 | Artha Dictionary | `Ctrl+Alt+A` | `~/bin/artha-word` (bridges the selection to X11 for Artha) |
-| Ominty Capture | `Ctrl+Alt+R` | `~/.local/bin/screen-ocr` |
-| Ominty Reader (document) | `Super+Alt+O` | `~/bin/tts-pick` (TTS layer) |
-| Ominty Reader (clipboard) | `Shift+Alt+S` | `~/bin/read-selection --clipboard` |
-| Ominty Media | `Shift+Alt+M` | the playlist launcher (DMS plugin) |
+| Omi Capture | `Ctrl+Alt+R` | `~/.local/bin/screen-ocr` |
+| Omi Reader (document) | `Super+Alt+O` | `~/bin/tts-pick` (TTS layer) |
+| Omi Reader (clipboard) | `Shift+Alt+S` | `~/bin/read-selection --clipboard` |
+| Omi Media | `Shift+Alt+M` | the playlist launcher (DMS plugin) |
 
 ```kdl
 binds {

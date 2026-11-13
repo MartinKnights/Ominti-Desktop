@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "omi-media"
 version = "0.1.0"
-description = "Ominty Media — directory-discovered playlist launcher"
+description = "Omi Media — directory-discovered playlist launcher"
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]

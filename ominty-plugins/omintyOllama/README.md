@@ -1,6 +1,6 @@
 # omintyOllama — Ollama Manager (native DMS plugin)
 
-Manages the local **Ollama** installation from Ominty/DMS. Replicates the
+Manages the local **Ollama** installation from Ominti-Desktop/DMS. Replicates the
 functionality of `~/Scripts/Bash/ollama_control_center.sh` (Zenity GUI) as a
 native shell plugin — but with live pull progress, a persistent chat pane and
 in-shell service control instead of sudo dialogs.
@@ -42,9 +42,9 @@ line (`{"ev":"p",...}`), finished with `{"ev":"done",...}`.
 
 - IPC: `dms ipc call omintyOllama toggle` (also `open`, `close`,
   `pull <model>`, `view <models|server|backup>`)
-- Palette action: `ai.ollama.open` in the Ominty action registry
+- Palette action: `ai.ollama.open` in the Omi action registry
   (`ominty registry validate && ominty registry build` after editing).
-- Recommended keybind: assign `ai.ollama.open` a key in the Ominty keybinds
+- Recommended keybind: assign `ai.ollama.open` a key in the Omi keybinds
   (e.g. the Super+A chord grammar, "O" for Ollama).
 
 ## Logs

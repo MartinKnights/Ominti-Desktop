@@ -8,7 +8,7 @@ import qs.Common
 import qs.Widgets
 import qs.Modules.Plugins
 
-// Ominty Download Manager — native DMS plugin (daemon + overlay).
+// Omi Download Manager — native DMS plugin (daemon + overlay).
 //
 // Talks to a per-user aria2 RPC daemon through the helpers/ominty-dl.py
 // contract (same pattern as the reader's backend): the QML holds no logic.

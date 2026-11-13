@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ominty-ollama — local Ollama management helper for the Ominty Ollama plugin.
+"""ominty-ollama — local Ollama management helper for the Omi Ollama plugin.
 
 Drives the local Ollama installation: status, list/show/pull/remove models,
 quick chat, service control, GPU check and backup/restore of the models

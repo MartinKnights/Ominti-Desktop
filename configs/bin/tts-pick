@@ -1,5 +1,5 @@
 #!/bin/sh
-# Ominty Reader — pick a document and read it aloud.
+# Omi Reader — pick a document and read it aloud.
 #
 # Launched from niri (Super+Alt+O), so stderr is invisible. Every failure has
 # to be surfaced in a dialog: a picker that silently does nothing is the worst
@@ -8,7 +8,7 @@
 # Requires: zenity, pandoc/pdftotext/catdoc (tts layer), Piper in ~/.piper-venv.
 
 f=$(zenity --file-selection \
-    --title="Ominty Reader — select a document" \
+    --title="Omi Reader — select a document" \
     --file-filter='Documents (md txt pdf doc docx epub) | *.md *.txt *.pdf *.doc *.docx *.epub' \
     2>/dev/null) || exit 0
 [ -n "$f" ] || exit 0
@@ -19,10 +19,10 @@ fi
 
 msg=$(printf '%s' "$out" | sed 's/^[[:space:]]*//' | sed '/^$/d' | head -5)
 
-zenity --error --title="Ominty Reader" --width=560 --no-markup \
+zenity --error --title="Omi Reader" --width=560 --no-markup \
     --text="Could not read that document.
 
 $msg" 2>/dev/null \
-    || notify-send -u critical "Ominty Reader" "$msg" 2>/dev/null
+    || notify-send -u critical "Omi Reader" "$msg" 2>/dev/null
 
 exit 1

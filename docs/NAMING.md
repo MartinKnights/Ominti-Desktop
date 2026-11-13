@@ -3,23 +3,22 @@
 One name per surface, used everywhere a user can see it: window titles, tray
 tooltips, notification summaries, dialogs, docs and the keybinding cheat sheet.
 
-The product is **Ominti-Desktop**. The six surfaces below keep their established
-`Ominty <Noun>` prefix until the UI rebrand lands; this is deliberate, so the
-documentation and the strings on screen agree. The rule for the surfaces is
-simple: **`Ominty <Noun>`**, title case, nothing else. No "TTS", no "Piper", no
-"playlist selector", no "script hub", no product names borrowed from the
-implementation.
+The product is **Ominti-Desktop**. The six surfaces use the short prefix
+**Omi**; the rule is **`Omi <Noun>`**, title case, nothing else. No "TTS", no
+"Piper", no "playlist selector", no "script hub", no product names borrowed
+from the implementation. Internal identifiers keep the historical `ominty`
+spelling and must not be renamed (rule 2).
 
 ## The names
 
 | Official name | What it does | Keys | CLI (internal) | DMS plugin | Popup |
 | --- | --- | --- | --- | --- | --- |
-| **Ominty Media** | Playlist launcher: one tab per folder, Tab/arrows to navigate, type to filter, Enter to play | `Shift+Alt+M` (alias `Ctrl+Shift+M`) | `omi-media` | `omintyMedia` | — |
-| **Ominty Dictionary** | Offline dictionary and thesaurus for the selected word | `Ctrl+Shift+A` | `omi-dict` | `omintyDictionary` | — |
-| **Ominty Reader** | Reads a document, the selection, or the clipboard aloud | `Super+Alt+O`, `Ctrl+Alt+S`, `Shift+Alt+S` | `ominty tts`, `tts-pick`, `read-selection` | — | `ominty-tts` |
-| **Ominty Dictation** | Speech to text, typed into the focused window | `Super+Alt+T` (panel), `Super+Alt+D` (toggle) | `ominty voice` | — | `ominty-voice` |
-| **Ominty Capture** | Screen OCR: select an area, get the text on the clipboard | `Ctrl+Alt+R` | `screen-ocr` | — | — |
-| **Ominty Scripts** | Script launcher / control panel | `Super+S` | `script_command_centre.sh` | — | — |
+| **Omi Media** | Playlist launcher: one tab per folder, Tab/arrows to navigate, type to filter, Enter to play | `Shift+Alt+M` (alias `Ctrl+Shift+M`) | `omi-media` | `omintyMedia` | — |
+| **Omi Dictionary** | Offline dictionary and thesaurus for the selected word | `Ctrl+Shift+A` | `omi-dict` | `omintyDictionary` | — |
+| **Omi Reader** | Reads a document, the selection, or the clipboard aloud | `Super+Alt+O`, `Ctrl+Alt+S`, `Shift+Alt+S` | `ominty tts`, `tts-pick`, `read-selection` | — | `ominty-tts` |
+| **Omi Dictation** | Speech to text, typed into the focused window | `Super+Alt+T` (panel), `Super+Alt+D` (toggle) | `ominty voice` | — | `ominty-voice` |
+| **Omi Capture** | Screen OCR: select an area, get the text on the clipboard | `Ctrl+Alt+R` | `screen-ocr` | — | — |
+| **Omi Scripts** | Script launcher / control panel | `Super+S` | `script_command_centre.sh` | — | — |
 
 ## Rules
 
@@ -33,19 +32,19 @@ implementation.
 4. **Action ids stay `<domain>.<verb>`** (`media.launcher`,
    `voice.speak.clipboard`, `text.define`). The official name is the label, not
    the id.
-5. **New surfaces follow the pattern.** If it cannot be named `Ominty <Noun>`,
+5. **New surfaces follow the pattern.** If it cannot be named `Omi <Noun>`,
    it is probably not a user-facing surface yet.
 
 ## Where each name appears
 
 | Name | Strings |
 | --- | --- |
-| Ominty Media | `OmintyMedia.qml` header; `omi-media` error text |
-| Ominty Dictionary | `OmintyDictionary.qml` header; lookup errors |
-| Ominty Reader | `tts-pick` dialog titles, `piper-indicator` tooltips and icon title, `ominty-tts` fallback title, `ominty tts` errors |
-| Ominty Dictation | `ominty-voice` panel label, transcription status |
-| Ominty Capture | every `notify-send` in `screen-ocr` |
-| Ominty Scripts | every Zenity title in `script_command_centre.sh` |
+| Omi Media | `OmintyMedia.qml` header; `omi-media` error text |
+| Omi Dictionary | `OmintyDictionary.qml` header; lookup errors |
+| Omi Reader | `tts-pick` dialog titles, `piper-indicator` tooltips and icon title, `ominty-tts` fallback title, `ominty tts` errors |
+| Omi Dictation | `ominty-voice` panel label, transcription status |
+| Omi Capture | every `notify-send` in `screen-ocr` |
+| Omi Scripts | every Zenity title in `script_command_centre.sh` |
 
 Renaming a surface is a UI change only: update this table, the strings above,
 and the Applications table in `docs/INSTALL.md`. Nothing else depends on it.

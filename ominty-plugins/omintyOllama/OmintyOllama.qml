@@ -8,7 +8,7 @@ import qs.Common
 import qs.Widgets
 import qs.Modules.Plugins
 
-// Ominty Ollama Manager — native DMS plugin (daemon + overlay).
+// Omi Ollama Manager — native DMS plugin (daemon + overlay).
 //
 // Manages the local Ollama installation through the helpers/ominty-ollama.py
 // contract (QML holds no logic, same pattern as omintyDownload): status,

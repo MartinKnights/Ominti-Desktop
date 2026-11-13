@@ -82,8 +82,8 @@ The product and repositories were renamed to **Ominti-Desktop** and
 **ominti-core**, but the runtime keeps the historical `ominty` identifiers so
 existing installs, scripts and configuration continue to work: the `ominty` CLI,
 `~/.config/ominty`, `OMINTY_*` variables and the `~/Ominty` checkout. The six
-desktop surfaces also keep their `Ominty <Noun>` names until the UI rebrand
-lands. See the [naming note](../README.md#naming-and-compatibility).
+desktop surfaces use the short prefix `Omi` (`Omi Media`, `Omi Dictionary`, …).
+See the [naming note](../README.md#naming-and-compatibility).
 
 ## How do I update?
 

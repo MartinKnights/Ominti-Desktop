@@ -8,7 +8,7 @@ import qs.Common
 import qs.Widgets
 import qs.Modules.Plugins
 
-// Ominty Media — playlist launcher (DMS popup over the omi-media service).
+// Omi Media — playlist launcher (DMS popup over the omi-media service).
 //
 // A **selector only**: category tabs → filter → choose a playlist.  Choosing
 // one hands it to a separate player application (vlc/mpv, per media.toml) and
@@ -293,7 +293,7 @@ PluginComponent {
                     Layout.fillWidth: true
                     spacing: Theme.spacingM
                     StyledText {
-                        text: "Ominty Media"
+                        text: "Omi Media"
                         font.pixelSize: Theme.fontSizeLarge
                         font.weight: Font.Bold
                         color: Theme.surfaceText

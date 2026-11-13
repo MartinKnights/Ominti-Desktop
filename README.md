@@ -68,13 +68,13 @@ supports Ubuntu-family systems through the same source-build path.
 
 | Surface | Key | What it does |
 | --- | --- | --- |
-| **Ominty Media** | `Shift+Alt+M` | Playlist launcher — one tab per folder, type to filter, Enter to play |
-| **Ominty Dictionary** | `Ctrl+Shift+A` | Offline dictionary and thesaurus for the selected word |
-| **Ominty Reader** | `Super+Alt+O` | Read a document aloud (Piper), with a transport panel |
-| **Ominty Reader** (clipboard) | `Shift+Alt+S` | Read the clipboard aloud |
-| **Ominty Dictation** | `Super+Alt+T` | Speech to text, typed into the focused window (whisper.cpp) |
-| **Ominty Capture** | `Ctrl+Alt+R` | OCR — select an area, get the text on the clipboard |
-| **Ominty Scripts** | `Super+S` | Script launcher / control panel |
+| **Omi Media** | `Shift+Alt+M` | Playlist launcher — one tab per folder, type to filter, Enter to play |
+| **Omi Dictionary** | `Ctrl+Shift+A` | Offline dictionary and thesaurus for the selected word |
+| **Omi Reader** | `Super+Alt+O` | Read a document aloud (Piper), with a transport panel |
+| **Omi Reader** (clipboard) | `Shift+Alt+S` | Read the clipboard aloud |
+| **Omi Dictation** | `Super+Alt+T` | Speech to text, typed into the focused window (whisper.cpp) |
+| **Omi Capture** | `Ctrl+Alt+R` | OCR — select an area, get the text on the clipboard |
+| **Omi Scripts** | `Super+S` | Script launcher / control panel |
 | Interaction explorer | `Super+K` | Browse and run every action |
 | Universal palette | `Super+Space` | Apps **and** actions together |
 | Cheat sheet | `Super+Shift+S` | Tabbed keybinding reference |
@@ -89,7 +89,7 @@ The canonical name of every surface is in [docs/NAMING.md](docs/NAMING.md).
 1. Log in and choose the **Niri** session. The DMS bar appears at the top.
 2. Press `Super+K` and type `terminal` — the interaction explorer filters every
    registered action, not just applications.
-3. Open **Ominty Media** with `Shift+Alt+M`, pick a playlist folder, type to
+3. Open **Omi Media** with `Shift+Alt+M`, pick a playlist folder, type to
    filter and press Enter.
 4. Select a word anywhere and press `Ctrl+Shift+A` for the offline dictionary.
 5. Press `Super+Alt+O` to have a document read aloud, or `Super+Alt+T` to
@@ -258,8 +258,8 @@ Ominti-Desktop/
 │   ├── dms/                   #   shell settings, plugin lock, overlay patch
 │   ├── bin/ local-bin/ Scripts/  # helper scripts the keybindings call
 │   └── systemd/               #   user units and drop-ins
-├── omi-media/                 # Ominty Media (CLI + DMS popup)
-├── omi-dictionary/            # Ominty Dictionary (CLI + DMS popup)
+├── omi-media/                 # Omi Media (CLI + DMS popup)
+├── omi-dictionary/            # Omi Dictionary (CLI + DMS popup)
 ├── ominty-plugins/            # shipped plugins + patches for third-party ones
 ├── scripts/                   # build, verification, diagnostics, rollback
 ├── packages/                  # prebuilt .debs (niri, xwayland-satellite)
@@ -279,8 +279,8 @@ registry and DMS plugins).
 Technical identifiers keep their existing names so upgrades and scripts do not
 break: the `ominty` CLI, `~/.config/ominty`, `OMINTY_*` environment variables,
 the `~/Ominty` checkout directory, and the `ominty-core/` submodule path. The six
-desktop surfaces also retain their established `Ominty <Noun>` names until the
-UI rebrand lands. When in doubt: **product = Ominti-Desktop; runtime = ominty.**
+desktop surfaces use the short prefix **Omi** (`Omi Media`, `Omi Dictionary`, …).
+When in doubt: **product = Ominti-Desktop; surfaces = Omi; runtime = ominty.**
 
 ## Contributing, security and license
 

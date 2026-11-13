@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ominty — is the desktop actually functional, not just installed?
+"""Ominti-Desktop — is the desktop actually functional, not just installed?
 
 verify-upgrade.sh checks plumbing (unit, overlay, files). This checks the
 things a user notices: does every registered action have the program it

@@ -103,7 +103,7 @@ The installer is **idempotent** — re-running it is safe. In order, it:
    `~/.config/ominty/` (existing user AI config is kept).
 7. Symlinks `ominty`/`ominty-hook` into `~/.local/bin` and generates the Niri
    bindings fragment from the action registry.
-8. Installs the DMS plugins: six Ominty plugins symlinked from this checkout,
+8. Installs the DMS plugins: six Omi plugins symlinked from this checkout,
    and 14 third-party plugins restored at pinned commits from
    `configs/dms/plugins.lock.json`, then re-applies
    `ominty-plugins/patches/*`.
@@ -218,17 +218,17 @@ shell:
 
 | Surface | Chord | What makes it work |
 | --- | --- | --- |
-| **Ominty Dictionary** | `Ctrl+Shift+A` | `omi-dict` + `omintyDictionary` |
-| **Ominty Media** | `Shift+Alt+M` (alias `Ctrl+Shift+M`) | `omi-media` + `omintyMedia` |
-| **Ominty Reader** (document) | `Super+Alt+O` | `tts-pick`, pandoc/pdftotext/catdoc, Piper |
-| **Ominty Reader** (clipboard) | `Shift+Alt+S` | `read-selection --clipboard`, Piper |
-| **Ominty Dictation** | `Super+Alt+T` | whisper.cpp + `wtype` |
-| **Ominty Capture** | `Ctrl+Alt+R` | `grim`, `slurp`, `tesseract-ocr` |
+| **Omi Dictionary** | `Ctrl+Shift+A` | `omi-dict` + `omintyDictionary` |
+| **Omi Media** | `Shift+Alt+M` (alias `Ctrl+Shift+M`) | `omi-media` + `omintyMedia` |
+| **Omi Reader** (document) | `Super+Alt+O` | `tts-pick`, pandoc/pdftotext/catdoc, Piper |
+| **Omi Reader** (clipboard) | `Shift+Alt+S` | `read-selection --clipboard`, Piper |
+| **Omi Dictation** | `Super+Alt+T` | whisper.cpp + `wtype` |
+| **Omi Capture** | `Ctrl+Alt+R` | `grim`, `slurp`, `tesseract-ocr` |
 
 The canonical names for every surface are in [NAMING.md](NAMING.md);
 user-facing strings must use them.
 
-**Ominty Media folders.** The launcher discovers playlists by directory, so
+**Omi Media folders.** The launcher discovers playlists by directory, so
 `install.sh` creates `~/Playlist/{Audio,Courses,Music,Video}` with a README.
 Every subfolder is a tab: rename them, add your own, or prefix them (`01-Audio`)
 to control the order. A folder with no playlist is hidden until it contains
@@ -246,7 +246,7 @@ order with `omi-media sort --in-place <playlist>`; a `.bak-ominty-*` copy is
 kept.
 
 `omi-dict` and `omi-media` are symlinked into `~/.local/bin` (their `bin/`
-scripts resolve `../src` through the symlink). The six Ominty DMS plugins are
+scripts resolve `../src` through the symlink). The six Omi DMS plugins are
 symlinked from this checkout, so `git pull` updates them.
 
 Third-party DMS plugins are pinned by **exact commit** in
@@ -259,7 +259,7 @@ bar widgets; DMS ignores ids it cannot resolve.
 
 Two things are data rather than code, and are too large for git:
 
-- **Document extraction tools** — Ominty Reader needs `pandoc`,
+- **Document extraction tools** — Omi Reader needs `pandoc`,
   `poppler-utils` and `catdoc` for `.md`/`.docx`/`.epub`, `.pdf` and `.doc`.
   They are in the `tts` layer; without them only `.txt` works.
 - **Dictionaries** — the `.bgl` sources import to roughly 800 MB under
@@ -413,13 +413,13 @@ Then exercise the surfaces:
 - `Super+Shift+S` — cheat sheet (GKS)
 - `Super+A` — AI menu
 - `Super+X` — power menu (Restart Audio / Restart Network / Reload Niri)
-- `Shift+Alt+M` — Ominty Media (one tab per folder under `~/Playlist`)
-- `Ctrl+Shift+A` — Ominty Dictionary
-- `Super+Alt+O` — Ominty Reader (document)
-- `Shift+Alt+S` — Ominty Reader (clipboard)
-- `Super+Alt+T` — Ominty Dictation panel
-- `Ctrl+Alt+R` — Ominty Capture (screen OCR)
-- `Super+S` — Ominty Scripts
+- `Shift+Alt+M` — Omi Media (one tab per folder under `~/Playlist`)
+- `Ctrl+Shift+A` — Omi Dictionary
+- `Super+Alt+O` — Omi Reader (document)
+- `Shift+Alt+S` — Omi Reader (clipboard)
+- `Super+Alt+T` — Omi Dictation panel
+- `Ctrl+Alt+R` — Omi Capture (screen OCR)
+- `Super+S` — Omi Scripts
 
 ## 5. Wallpapers
 

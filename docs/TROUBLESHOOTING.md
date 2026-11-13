@@ -10,11 +10,11 @@ log in there.
 | --- | --- |
 | No bar, or the shell is not running | [The shell (DMS)](#the-shell-dms) |
 | A plugin opens blank or disappeared | [DMS plugins](#dms-plugins) |
-| Media is empty, or a playlist will not play | [Ominty Media](#ominty-media) |
-| Reader has no sound, or its panel is missing | [Ominty Reader](#ominty-reader-text-to-speech) |
-| Dictionary is unavailable | [Ominty Dictionary](#ominty-dictionary) |
-| Dictation opens but types nothing | [Ominty Dictation](#ominty-dictation-speech-to-text) |
-| OCR returns nothing | [Ominty Capture](#ominty-capture-screen-ocr) |
+| Media is empty, or a playlist will not play | [Omi Media](#omi-media) |
+| Reader has no sound, or its panel is missing | [Omi Reader](#omi-reader-text-to-speech) |
+| Dictionary is unavailable | [Omi Dictionary](#omi-dictionary) |
+| Dictation opens but types nothing | [Omi Dictation](#omi-dictation-speech-to-text) |
+| OCR returns nothing | [Omi Capture](#omi-capture-screen-ocr) |
 | The clone or `.deb` download fails | [Downloading the repository](#downloading-the-repository) |
 | A build or the installer fails | [Installer and build](#installer-and-build) |
 | No Niri session, black screen, wrong session | [Session](#session) |
@@ -195,7 +195,7 @@ scripts/apply-plugin-patches.sh
 dms ipc call plugins reload <pluginId>
 ```
 
-The Ominty plugins (`omintyMedia`, `omintyDictionary`, `omintyDownload`,
+The Omi plugins (`omintyMedia`, `omintyDictionary`, `omintyDownload`,
 `omintyOllama`, `omintyActions`, `omintyKeybinds`) are symlinks into this
 repository; `./install.sh` re-creates them.
 
@@ -207,7 +207,7 @@ installer. Re-run `./install.sh`; the previous file is kept as
 
 ---
 
-## Ominty Media
+## Omi Media
 
 ### "No folders with playlists — add .m3u files under ~/Playlist"
 
@@ -250,7 +250,7 @@ VLC has no persistent "sort by title" setting, so this is the only fix.
 
 ---
 
-## Ominty Reader (text to speech)
+## Omi Reader (text to speech)
 
 ### Picking a document does nothing
 
@@ -299,7 +299,7 @@ daemon; check `/tmp/piper_daemon.log` and copy something first.
 
 ---
 
-## Ominty Dictionary
+## Omi Dictionary
 
 ### "Dictionary unavailable"
 
@@ -329,7 +329,7 @@ Set `default_dictionary` to an id that exists, or import the missing one.
 
 ---
 
-## Ominty Dictation (speech to text)
+## Omi Dictation (speech to text)
 
 ### The panel opens but nothing is typed
 
@@ -357,7 +357,7 @@ key-release event under Niri, so it is a toggle by design.
 
 ---
 
-## Ominty Capture (screen OCR)
+## Omi Capture (screen OCR)
 
 ### OCR returns nothing
 

@@ -1,6 +1,6 @@
-# Ominty Download Manager (`omintyDownload`)
+# Omi Download Manager (`omintyDownload`)
 
-A **native** DMS plugin: an aria2-based download manager for Ominty. Built
+A **native** DMS plugin: an aria2-based download manager for Ominti-Desktop. Built
 natively on the DankMaterialShell plugin API — not ported.
 
 ## What it does

@@ -132,7 +132,7 @@ if [ -n "$PROVIDER" ]; then
         mkdir -p "$(dirname "$CONFIG")"
         [ -f "$CONFIG" ] && cp -a "$CONFIG" "$CONFIG.bak-ominty-$(date +%Y%m%d-%H%M%S)"
         {
-            echo "# Ominty AI configuration — written by scripts/setup-ai.sh"
+            echo "# Omi AI configuration — written by scripts/setup-ai.sh"
             echo
             echo "[ai]"
             echo "default_provider = \"$PROVIDER\""

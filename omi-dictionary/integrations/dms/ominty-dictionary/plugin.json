@@ -1,9 +1,9 @@
 {
     "id": "omintyDictionary",
-    "name": "Ominty Dictionary",
+    "name": "Omi Dictionary",
     "description": "Local dictionary lookup popup (omi-dict) — keyboard-first, multi-dictionary, All mode.",
     "version": "0.1.0",
-    "author": "Ominty",
+    "author": "Ominti-Desktop",
     "icon": "book",
     "type": "daemon",
     "capabilities": [

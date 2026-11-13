@@ -1,7 +1,7 @@
 """omi-media CLI surface (Omi Media Launcher spec §9–§11).
 
 The stable command-line contract between playlist discovery, the player
-launcher and every presentation layer (the DMS "Ominty Playlist Selector",
+launcher and every presentation layer (the DMS "Omi Media",
 scripts, later a Pi agent).  Usable with no desktop session at all.
 """
 

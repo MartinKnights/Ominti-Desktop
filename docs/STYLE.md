@@ -37,8 +37,8 @@ Do not nest headings deeper than `###` unless the page genuinely needs it.
 - Repositories: **`Ominti-Desktop`** and **`ominti-core`**.
 - Runtime identifiers keep their names: `ominty` CLI, `~/.config/ominty`,
   `OMINTY_*`, `~/Ominty`, `ominty-core/`.
-- Surface names: **Ominty Media**, **Ominty Dictionary**, **Ominty Reader**,
-  **Ominty Dictation**, **Ominty Capture**, **Ominty Scripts**. Do not invent
+- Surface names: **Omi Media**, **Omi Dictionary**, **Omi Reader**,
+  **Omi Dictation**, **Omi Capture**, **Omi Scripts**. Do not invent
   alternative names; see [NAMING.md](NAMING.md).
 - Expand an acronym on first use, then link to [GLOSSARY.md](GLOSSARY.md).
 

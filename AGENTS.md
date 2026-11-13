@@ -41,7 +41,7 @@ stack:
 - **Quickshell** — the QML runtime, **built from a pinned commit** (`v0.3.1`)
 - **`ominty`** — CLI, action registry, and the glue that generates keybindings
 - **matugen** — wallpaper-driven theming (OBS)
-- Six Ominty applications (Media, Dictionary, Reader, Dictation, Capture,
+- Six Omi applications (Media, Dictionary, Reader, Dictation, Capture,
   Scripts) plus pinned third-party DMS plugins
 
 DMS is source-built on **both** Debian and Ubuntu families so every machine runs
@@ -215,7 +215,7 @@ TTS/STT/media/dictionary stacks are complete. **Passing one does not imply the
 other.**
 
 The one check no machine can make is visual. Ask the user to confirm the accent
-glow, the spring animation, and the six Ominty keys after logging in.
+glow, the spring animation, and the six Omi keys after logging in.
 
 Only after that, offer AI: `scripts/setup-ai.sh` (the final phase of the install
 runbook). It is last on purpose — a model download or missing credentials must
@@ -267,8 +267,8 @@ command:
 | whisper model (~142 MB) | `~/.local/share/ominty/models` | `scripts/source/whisper-build.sh` (the installer runs it) |
 | Playlists | `~/Playlist/<folder>/*.m3u` | the user's own files; one tab per folder |
 
-Without the dictionaries, Ominty Dictionary reports that the dictionary is
-unavailable. Without a playlist, Ominty Media says so. Neither is an install
+Without the dictionaries, Omi Dictionary reports that the dictionary is
+unavailable. Without a playlist, Omi Media says so. Neither is an install
 failure.
 
 ---
@@ -280,11 +280,11 @@ and **`ominti-core`**. Runtime identifiers keep their historical names so
 upgrades and scripts do not break: the `ominty` CLI, `~/.config/ominty`,
 `OMINTY_*`, `~/Ominty` and the `ominty-core/` submodule path.
 
-User-facing names are fixed by [`docs/NAMING.md`](docs/NAMING.md): **Ominty
-Media**, **Ominty Dictionary**, **Ominty Reader**, **Ominty Dictation**,
-**Ominty Capture**, **Ominty Scripts**. The surfaces keep the `Ominty` prefix
-until the UI rebrand lands. Internal ids (`omi-media`, `omintyMedia`,
-`voice.speak.file`) are contracts and must not be renamed.
+User-facing names are fixed by [`docs/NAMING.md`](docs/NAMING.md): **Omi
+Media**, **Omi Dictionary**, **Omi Reader**, **Omi Dictation**,
+**Omi Capture**, **Omi Scripts**. The surfaces use the short prefix `Omi`.
+Internal ids (`omi-media`, `omintyMedia`, `voice.speak.file`) are contracts
+and must not be renamed.
 
 The documentation is organised by task in [`docs/README.md`](docs/README.md).
 The repository layout is in the [README](README.md#repository-layout). If you are

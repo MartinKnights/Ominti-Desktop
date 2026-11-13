@@ -399,7 +399,7 @@ fi
 # ---------------------------------------------------------------------------
 S="$OUT/SUMMARY.txt"
 {
-    echo "Ominty diagnostics — $HOST — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    echo "Ominti-Desktop diagnostics — $HOST — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
     echo
     . /etc/os-release 2>/dev/null && echo "OS:       $PRETTY_NAME ($VERSION_CODENAME)"
     echo "Kernel:   $(uname -r)"

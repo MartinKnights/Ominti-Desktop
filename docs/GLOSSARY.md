@@ -70,8 +70,9 @@ launcher. The official names are in [NAMING.md](NAMING.md).
 **Universal palette** — `Super+Space`; searches applications and actions
 together.
 
-**Ominty Media / Dictionary / Reader / Dictation / Capture / Scripts** — the six
-shipped surfaces. The UI names keep the historical `Ominty` prefix; see the
+**Omi Media / Dictionary / Reader / Dictation / Capture / Scripts** — the six
+shipped surfaces. The UI names use the short prefix `Omi`; internal ids keep
+the historical `ominty` spelling. See the
 [naming note](../README.md#naming-and-compatibility).
 
 ## Platform and install

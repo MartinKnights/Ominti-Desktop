@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ominty-dl — local aria2 RPC helper for the Ominty download manager.
+"""ominty-dl — local aria2 RPC helper for the Omi download manager.
 
 Spawns a per-user aria2 RPC daemon (JSON-RPC over the loopback) the first
 time it is needed, then drives it: add URLs, list active/waiting/stopped
