@@ -1,4 +1,4 @@
-# Maintaining Ominty
+# Maintaining Ominti-Desktop
 
 How the process is wired, and how to change it without breaking the machines it
 already runs on. Read this before touching a pin.
@@ -121,7 +121,7 @@ Then **curate**: keep only plugins that are portable and safe to ship.
   `dms plugins lock` refuses with *"operator-managed plugin … use reviewed
   control deployment"* — that is expected; build the file from the remaining
   entries.
-- Ominty's own plugins are **not** in the lock; they are symlinked from this
+- Ominti-Desktop's own plugins are **not** in the lock; they are symlinked from this
   repository.
 
 Test before committing:
@@ -208,8 +208,14 @@ scripts/check-docs.sh
 
 It fails when a doc claims something the code contradicts (stale names, OBS
 `dms`, "four categories", `support_level: experimental`), references a script
-that does not exist, links to a missing document, or when the runbooks disagree
-on the verification commands. Run it before every push.
+that does not exist, links to a missing document, uses an old repository URL, or
+when the runbooks disagree on the verification commands. Run it before every
+push.
+
+The documentation is organised by task in [`docs/README.md`](README.md). New
+pages must be added to that map and to the check's index. Prose follows
+[`docs/STYLE.md`](STYLE.md); user-visible changes get an entry in
+[`CHANGELOG.md`](../CHANGELOG.md).
 
 ## Pre-push checklist
 
@@ -237,4 +243,5 @@ finding rather than "fixing" the manifest.
 There is no version file. A release is the `main` branch at a commit where the
 checklist above passes on both a Debian 13 and an Ubuntu 24.04 machine. Record
 the DMS/Quickshell pins and the shell build id in the commit message when they
-change — that is what the agent runbooks quote.
+change — that is what the agent runbooks quote. Add the user-visible parts to
+[`CHANGELOG.md`](../CHANGELOG.md).

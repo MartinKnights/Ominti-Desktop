@@ -1,6 +1,6 @@
 # Prompts for your AI
 
-Ominty is designed to be set up **by an AI agent running on the machine**, with
+Ominti-Desktop is designed to be set up **by an AI agent running on the machine**, with
 the repository as its instructions. Copy one of these prompts into your agent
 (Claude Code, opencode, Codex, Cursor — anything with shell access), and it will
 work through the matching runbook.
@@ -10,18 +10,18 @@ ask for your `sudo` password at the install step; that is expected.
 
 ---
 
-## 1. Setting up a machine that is not running Ominty
+## 1. Setting up a machine that is not running Ominti-Desktop
 
 Use this for a clean install, or for a machine still running Cinnamon/GNOME that
-should become Ominty.
+should become Ominti-Desktop.
 
-> You are installing Ominty on this machine. It is a fresh LMDE 7 (Debian 13)
-> install that still has Cinnamon. I want Ominty as the desktop, and there is
+> You are installing Ominti-Desktop on this machine. It is a fresh LMDE 7 (Debian 13)
+> install that still has Cinnamon. I want Ominti-Desktop as the desktop, and there is
 > nothing from Cinnamon I need to keep.
 >
 > 1. The repository should be at `~/Ominty`. If it is not, fetch it with the
 >    resumable bootstrap:
->    `curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominty/main/bootstrap.sh`
+>    `curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominti-Desktop/main/bootstrap.sh`
 >    then `bash bootstrap.sh`. Re-run it if a download drops; it continues from
 >    where it stopped. If the checkout exists, `bash bootstrap.sh` updates it.
 > 2. Read `AGENTS.md`, then follow `docs/AGENT-INSTALL.md` end to end.
@@ -40,10 +40,10 @@ should become Ominty.
 
 ---
 
-## 2. Updating a machine that already runs Ominty
+## 2. Updating a machine that already runs Ominti-Desktop
 
-> This machine already runs Ominty. Read `docs/AGENT-UPGRADE.md` and execute it
-> end to end.
+> This machine already runs Ominti-Desktop. Read `docs/AGENT-UPGRADE.md` and
+> execute it end to end.
 >
 > Follow its gates literally — if one fails, stop and tell me. Do not skip
 > Phase 7: I want the friction report at `~/ominty-upgrade-report-<date>.md`.
@@ -54,7 +54,7 @@ should become Ominty.
 
 ## 3. Something is broken
 
-> Something is wrong with my Ominty desktop. Do not reinstall anything.
+> Something is wrong with my Ominti-Desktop session. Do not reinstall anything.
 >
 > 1. Run `scripts/collect-diagnostics.sh` and read `SUMMARY.txt` from the folder
 >    it creates.

@@ -55,7 +55,7 @@ only, so it is safe to use in scripts.
 }
 ```
 
-`id` is the platform family Ominty's adapters key on: `debian`, `void`, or
+`id` is the platform family Ominti-Desktop's adapters key on: `debian`, `void`, or
 `unknown`. `family` keeps the provisioning distinction that `id` collapses:
 
 | `family` | Meaning |
@@ -315,7 +315,7 @@ unavailable-looking option that actually works is worse than a missing detail.
 | `session.default` | yes | Make Niri the default login session, or leave it? |
 | `config.migration` | yes | Replace existing configuration, or keep it? |
 | `plugins.dms` | no | Install the third-party DMS plugins? |
-| `desktop.shell_overlay` | no | Apply Ominty's motion + accent-glow overlay, or keep stock DMS? |
+| `desktop.shell_overlay` | no | Apply Ominti-Desktop's motion + accent-glow overlay, or keep stock DMS? |
 | `tts.enabled` | no | Install the Piper read-aloud stack? |
 
 ---

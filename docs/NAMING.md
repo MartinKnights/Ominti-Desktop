@@ -1,11 +1,14 @@
-# Ominty — official names
+# Ominti-Desktop — official surface names
 
 One name per surface, used everywhere a user can see it: window titles, tray
 tooltips, notification summaries, dialogs, docs and the keybinding cheat sheet.
 
-The rule is simple: **`Ominty <Noun>`**, title case, nothing else. No "TTS",
-no "Piper", no "playlist selector", no "script hub", no product names borrowed
-from the implementation.
+The product is **Ominti-Desktop**. The six surfaces below keep their established
+`Ominty <Noun>` prefix until the UI rebrand lands; this is deliberate, so the
+documentation and the strings on screen agree. The rule for the surfaces is
+simple: **`Ominty <Noun>`**, title case, nothing else. No "TTS", no "Piper", no
+"playlist selector", no "script hub", no product names borrowed from the
+implementation.
 
 ## The names
 

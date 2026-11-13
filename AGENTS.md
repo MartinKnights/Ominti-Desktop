@@ -1,10 +1,10 @@
-# AGENTS.md — deploying Ominty
+# AGENTS.md — deploying Ominti-Desktop
 
-This is the entry point for **any agent putting Ominty on a machine**. Read this
+This is the entry point for **any agent putting Ominti-Desktop on a machine**. Read this
 file first; it tells you which runbook to follow. Do not reconstruct the process
 from memory or from a chat summary — the repository is the source of truth.
 
-If you are *developing* Ominty rather than deploying it, read
+If you are *developing* Ominti-Desktop rather than deploying it, read
 [`ominty-core/AGENTS.md`](ominty-core/AGENTS.md) instead. That file governs the
 implementation contracts; this one governs deployment.
 
@@ -14,10 +14,10 @@ implementation contracts; this one governs deployment.
 
 | The machine… | Read |
 | --- | --- |
-| has no desktop, or the user wants Ominty as the only desktop | [`docs/AGENT-INSTALL.md`](docs/AGENT-INSTALL.md) |
-| already runs **Ominty** (any version) | [`docs/AGENT-UPGRADE.md`](docs/AGENT-UPGRADE.md) |
+| has no desktop, or the user wants Ominti-Desktop as the only desktop | [`docs/AGENT-INSTALL.md`](docs/AGENT-INSTALL.md) |
+| already runs **Ominti-Desktop** (any version) | [`docs/AGENT-UPGRADE.md`](docs/AGENT-UPGRADE.md) |
 | runs Cinnamon/GNOME and the user wants to keep apps, settings or data | [`docs/MIGRATION.md`](docs/MIGRATION.md) **first**, then `docs/AGENT-INSTALL.md` |
-| has a broken Ominty desktop | [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) — do not reinstall |
+| has a broken Ominti-Desktop session | [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) — do not reinstall |
 | is not Debian 13, LMDE 7 or Ubuntu 24.04-family | stop and report |
 
 A stock LMDE 7 install arrives with Cinnamon. That alone does not make it a
@@ -29,9 +29,11 @@ a **setup report**. Both are required deliverables, not optional extras.
 
 ---
 
-## 2. What Ominty is
+## 2. What Ominti-Desktop is
 
-An opinionated Wayland desktop for Debian-family systems:
+An opinionated Wayland desktop for Debian-family systems. It is a layer on a
+normal Debian 13 / LMDE 7 install — **not** a distribution, ISO or kernel. The
+stack:
 
 - **Niri** — scrollable-tiling compositor (bundled `.deb`)
 - **DankMaterialShell (DMS)** — the shell, **built from a pinned commit** with a
@@ -273,11 +275,18 @@ failure.
 
 ## 10. Naming and layout
 
+The product is **Ominti-Desktop**, and the repositories are **`Ominti-Desktop`**
+and **`ominti-core`**. Runtime identifiers keep their historical names so
+upgrades and scripts do not break: the `ominty` CLI, `~/.config/ominty`,
+`OMINTY_*`, `~/Ominty` and the `ominty-core/` submodule path.
+
 User-facing names are fixed by [`docs/NAMING.md`](docs/NAMING.md): **Ominty
 Media**, **Ominty Dictionary**, **Ominty Reader**, **Ominty Dictation**,
-**Ominty Capture**, **Ominty Scripts**. Internal ids (`omi-media`,
-`omintyMedia`, `voice.speak.file`) are contracts and must not be renamed.
+**Ominty Capture**, **Ominty Scripts**. The surfaces keep the `Ominty` prefix
+until the UI rebrand lands. Internal ids (`omi-media`, `omintyMedia`,
+`voice.speak.file`) are contracts and must not be renamed.
 
+The documentation is organised by task in [`docs/README.md`](docs/README.md).
 The repository layout is in the [README](README.md#repository-layout). If you are
 looking for something specific:
 

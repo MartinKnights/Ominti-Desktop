@@ -1,6 +1,6 @@
-# Migrating from Cinnamon to Niri
+# Migrating from Cinnamon or GNOME to Ominti-Desktop
 
-Ominty's desktop layer is Niri, but most users arrive from Linux Mint's
+Ominti-Desktop's desktop layer is Niri, but most users arrive from Linux Mint's
 Cinnamon (X11). Almost everything survives the change, but several Cinnamon
 assumptions do not hold under Niri — and they fail **silently**. No error is
 printed; the feature simply does not appear. This document records what has to
@@ -57,7 +57,7 @@ Anything started this way inherits Niri's environment (including
 ## 2. The tray protocol is different
 
 Cinnamon's panel tray speaks the classic **XEmbed** protocol. Niri has **no
-tray of its own** — the tray in an Ominty session is DMS's `systemTray` bar
+tray of its own** — the tray in an Ominti-Desktop session is DMS's `systemTray` bar
 widget, which is a Quickshell **StatusNotifierItem (SNI)** host. An icon only
 survives if the app speaks SNI.
 
@@ -177,7 +177,7 @@ come from the action registry (see `~/.config/ominty/generated/niri/bindings.kdl
 (`install.sh` renders `__HOME__` when it deploys the file.)
 
 Put these in the **user-owned** part of `config.kdl`, not in the DMS or
-Ominty-generated fragments — those are regenerated and would drop them.
+Ominti-Desktop-generated fragments — those are regenerated and would drop them.
 
 Check for collisions before adding: a chord already used by DMS will win.
 `Super+S` moved off Cinnamon's `<Shift><Super>p`, which clashed with DMS's
@@ -307,9 +307,9 @@ installer should run:
    The carousel replies `opened` to its IPC toggle; "working" means the picker
    appears, not that it auto-cycles.
 
-### Ominty aesthetics (matugen user templates)
+### Ominti-Desktop aesthetics (matugen user templates)
 
-Beyond DMS's own theming, Ominty registers two **matugen user templates** that
+Beyond DMS's own theming, Ominti-Desktop registers two **matugen user templates** that
 DMS renders on every wallpaper change (DMS merges `~/.config/matugen/config.toml`
 with its own config):
 
@@ -335,7 +335,7 @@ Verify: change the wallpaper; `~/.config/ominty/theme/palette.json` and
 
 DMS embeds its QML shell in the binary and unpacks it to
 `/run/user/$UID/danklinux-shell/<build>/`. That tree is read-only and is
-replaced whenever DMS is upgraded, so Ominty keeps a writable fork at
+replaced whenever DMS is upgraded, so Ominti-Desktop keeps a writable fork at
 `~/.local/share/dms-shell` and points DMS at it with `DMS_SHELL_DIR` via the
 drop-in `~/.config/systemd/user/dms.service.d/ominty-shell.conf`.
 

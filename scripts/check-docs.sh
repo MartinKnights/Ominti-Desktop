@@ -51,6 +51,29 @@ banned_in "Screen OCR" "${AGENT_DOCS[@]}"
 banned_in "Piper TTS" "${AGENT_DOCS[@]}"
 banned_in "/tmp/ominty-install.log" "${AGENT_DOCS[@]}"
 
+section "Repository names"
+for f in bootstrap.sh README.md docs/INSTALL.md docs/AGENT-INSTALL.md \
+         docs/PROMPTS.md docs/TROUBLESHOOTING.md; do
+    grep -qF "MartinKnights/Ominti-Desktop" "$f" \
+        && ok "$f uses the Ominti-Desktop repository URL" \
+        || bad "$f does not use the Ominti-Desktop repository URL"
+done
+for f in README.md .gitmodules docs/ARCHITECTURE.md; do
+    grep -qF "MartinKnights/ominti-core" "$f" \
+        && ok "$f uses the ominti-core repository URL" \
+        || bad "$f does not use the ominti-core repository URL"
+done
+# Current instructions must not send users to the old repositories. Historical
+# records (HANDOVER, docs/plans) are allowed to keep the names they used.
+banned_in "MartinKnights/Ominty" README.md AGENTS.md docs/INSTALL.md \
+    docs/AGENT-INSTALL.md docs/AGENT-UPGRADE.md docs/PROMPTS.md \
+    docs/TROUBLESHOOTING.md docs/UBUNTU.md docs/ARCHITECTURE.md \
+    docs/README.md
+banned_in "MartinKnights/ominty-core" README.md AGENTS.md docs/INSTALL.md \
+    docs/AGENT-INSTALL.md docs/AGENT-UPGRADE.md docs/PROMPTS.md \
+    docs/TROUBLESHOOTING.md docs/UBUNTU.md docs/ARCHITECTURE.md \
+    docs/README.md
+
 section "Flow invariants"
 grep -qE "Niri is not running|Niri session" docs/AGENT-INSTALL.md \
     && ok "AGENT-INSTALL knows the smoke test needs a Niri session" \
@@ -106,7 +129,7 @@ while IFS= read -r ref; do
         missing_scripts=$((missing_scripts + 1))
     fi
 done < <(grep -rhoE 'scripts/[A-Za-z0-9_./-]+\.(sh|py)' \
-            README.md AGENTS.md docs/*.md 2>/dev/null | sort -u)
+            README.md AGENTS.md CONTRIBUTING.md SECURITY.md docs/*.md 2>/dev/null | sort -u)
 [ "$missing_scripts" -eq 0 ] && ok "every referenced script exists"
 
 section "Links resolve"
@@ -125,7 +148,7 @@ while IFS= read -r doc; do
             missing_links=$((missing_links + 1))
         fi
     done < <(grep -oE '\]\([^)]+' "$doc" 2>/dev/null | sed 's/^](//')
-done < <(printf '%s\n' README.md AGENTS.md docs/*.md)
+done < <(printf '%s\n' README.md AGENTS.md CONTRIBUTING.md SECURITY.md docs/*.md)
 [ "$missing_links" -eq 0 ] && ok "all local links resolve"
 
 section "Runbooks agree on verification"
@@ -160,24 +183,28 @@ for f in README.md docs/INSTALL.md docs/AGENT-INSTALL.md docs/PROMPTS.md; do
 done
 while IFS= read -r name; do
     [ -n "$name" ] || continue
-    [ -f "packages/$name" ] \
-        && ok "bootstrap lists $name and it exists" \
-        || bad "bootstrap.sh lists $name but packages/$name is missing"
+    if [ -f "packages/$name" ] \
+        || git ls-files --error-unmatch "packages/$name" >/dev/null 2>&1; then
+        ok "bootstrap lists $name and it exists"
+    else
+        bad "bootstrap.sh lists $name but packages/$name is missing"
+    fi
 done < <(grep -oE '[A-Za-z0-9._+:-]+\.deb' bootstrap.sh | sort -u)
 
 section "Every reference doc is indexed"
 for f in docs/*.md; do
     case "$f" in
         docs/plans/*) continue ;;
-        docs/TROUBLESHOOTING.md|docs/INSTALL.md|docs/PROMPTS.md|docs/NAMING.md|\
+        docs/README.md|docs/TROUBLESHOOTING.md|docs/INSTALL.md|docs/PROMPTS.md|\
+        docs/NAMING.md|docs/GLOSSARY.md|docs/FAQ.md|docs/STYLE.md|\
         docs/INSPECT.md|docs/HARDWARE.md|docs/ARCHITECTURE.md|docs/UBUNTU.md|\
         docs/MIGRATION.md|docs/AGENT-INSTALL.md|docs/AGENT-UPGRADE.md|\
         docs/MAINTAINING.md) ;;
         *) bad "unclassified doc: $f" ;;
     esac
-    grep -qF -- "$(basename "$f")" README.md \
-        && ok "README indexes $(basename "$f")" \
-        || bad "README does not link $(basename "$f")"
+    grep -qF -- "$f" README.md \
+        && ok "README indexes $f" \
+        || bad "README does not link $f"
 done
 
 printf '\n\033[1mSummary:\033[0m %d passed, %d failed\n' "$pass" "$fail"

@@ -206,7 +206,8 @@ works on matugen 4.2.0. Add a `matugen --version` check and fall back to
 
 This is the part the installing agent runs **before** changing anything. It
 extends the existing `inspect → choices → dry-run → apply → verify` loop from
-`Ominty-Migration-Planning.md` §6.
+`Ominti-Desktop-Migration-Planning.md` §6 (formerly
+`Ominty-Migration-Planning.md`).
 
 ### 6.1 Step 0 — facts (read-only, no sudo)
 

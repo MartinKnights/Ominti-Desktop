@@ -1,7 +1,7 @@
-# Agent runbook — upgrade an existing Ominty install
+# Agent runbook — upgrade an existing Ominti-Desktop install
 
 **Audience:** an AI agent (or a careful human) running *on* the target machine.
-**Scope:** upgrade an existing Ominty/Niri/DMS install from this repository.
+**Scope:** upgrade an existing Ominti-Desktop/Niri/DMS install from this repository.
 **Do not use this for a fresh install** — that is `docs/INSTALL.md`.
 
 ## How to invoke this
@@ -66,7 +66,8 @@ report, do **not** continue.
 Locate the existing clone:
 
 ```bash
-for d in "$HOME/Ominty" "$HOME/Projects"/*/Ominty "$HOME"/src/Ominty; do
+for d in "$HOME/Ominty" "$HOME/Ominti-Desktop" "$HOME/Projects"/*/Ominty \
+         "$HOME/Projects"/*/Ominti-Desktop "$HOME"/src/Ominty "$HOME"/src/Ominti-Desktop; do
   [ -f "$d/install.sh" ] && echo "FOUND: $d"
 done
 ```
@@ -301,7 +302,7 @@ Write `~/ominty-upgrade-report-<YYYY-MM-DD>.md`. Keep it outside the repo so
 `git status` stays clean. Use exactly this structure:
 
 ```markdown
-# Ominty upgrade report — <host> — <date>
+# Ominti-Desktop upgrade report — <host> — <date>
 
 ## Machine
 - distro / codename / kernel:

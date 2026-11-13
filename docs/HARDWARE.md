@@ -2,7 +2,7 @@
 
 ## Reference hardware
 
-Ominty was developed and validated on a **Microsoft Surface Book 1** (2016):
+Ominti-Desktop was developed and validated on a **Microsoft Surface Book 1** (2016):
 
 - Intel Core i7-6600U, 15 GiB RAM
 - Built-in panel `eDP-1` at 2× scale
@@ -41,6 +41,7 @@ output "DP-1" {
 | Device | Output | Scale | Notes |
 |---|---|---|---|
 | Surface Book 1 | `eDP-1` | 2 | Profile included |
+| Dell Precision T7910 (T7911) | `DP-1` / `HDMI-A-1` | 1 | Validated on LMDE 7; NVIDIA Quadro M2000 on nouveau |
 | Generic desktop | `DP-1` / `HDMI-A-1` | 1 | Add your own `outputs.kdl` |
 
 ## Touch / pen devices
@@ -63,7 +64,7 @@ It is only present when the base is attached. See
 
 ## Contributing a profile
 
-If you get Ominty working on another device, add a `profiles/<device>/`
+If you get Ominti-Desktop working on another device, add a `profiles/<device>/`
 directory with:
 
 - `niri-outputs.kdl` — the output configuration

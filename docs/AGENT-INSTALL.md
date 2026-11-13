@@ -1,7 +1,7 @@
-# Agent runbook — fresh Ominty install
+# Agent runbook — fresh Ominti-Desktop install
 
 **Audience:** an AI agent running *on* the target machine.
-**Scope:** install Ominty on a machine that is not already running it.
+**Scope:** install Ominti-Desktop on a machine that is not already running it.
 **Do not use this for an upgrade** — that is `docs/AGENT-UPGRADE.md`.
 **Migrating from Cinnamon/GNOME?** Do the assessment in
 `docs/MIGRATION.md` first, then follow this file.
@@ -78,7 +78,7 @@ where a dropped download stopped. Run it as many times as needed.
 if [ -f bootstrap.sh ]; then
     bash bootstrap.sh
 else
-    curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominty/main/bootstrap.sh
+    curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominti-Desktop/main/bootstrap.sh
     bash bootstrap.sh
 fi
 cd ~/Ominty
@@ -368,7 +368,7 @@ again.
 Write `~/ominty-setup-report-<YYYY-MM-DD>.md`:
 
 ```markdown
-# Ominty setup report — <host> — <date>
+# Ominti-Desktop setup report — <host> — <date>
 
 ## Machine
 - distro / codename / kernel / arch:

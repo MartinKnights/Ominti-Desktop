@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Ominty — bootstrap the checkout, in retryable pieces.
+# Ominti-Desktop — bootstrap the checkout, in retryable pieces.
 #
 # A plain `git clone` is one 29 MB transfer (21 MB of it the bundled .debs), and
 # a dropped connection loses the whole thing. This script splits the download
@@ -22,6 +22,10 @@
 #   OMINTY_DIR=~/src/Ominty ./bootstrap.sh
 #   OMINTY_URL=/path/to/Ominty.bundle ./bootstrap.sh    # offline bundle
 #
+# The default checkout directory (~/Ominty) and the OMINTY_* variable names are
+# kept for compatibility with existing installs; only the GitHub repository and
+# product names changed to Ominti-Desktop / ominti-core.
+#
 # Environment:
 #   OMINTY_DIR            destination (default ~/Ominty)
 #   OMINTY_URL            remote, URL or local bundle (default HTTPS GitHub)
@@ -35,7 +39,7 @@
 set -uo pipefail
 
 DEST="${OMINTY_DIR:-$HOME/Ominty}"
-URL="${OMINTY_URL:-https://github.com/MartinKnights/Ominty.git}"
+URL="${OMINTY_URL:-https://github.com/MartinKnights/Ominti-Desktop.git}"
 BRANCH="${OMINTY_BRANCH:-main}"
 RETRIES="${OMINTY_RETRIES:-4}"
 TIMEOUT="${OMINTY_TIMEOUT:-900}"
@@ -156,7 +160,7 @@ if [ "$need_packages" -eq 1 ]; then
                 || die "could not copy $name (re-run to continue)"
         else
             have curl || die "curl is not installed (sudo apt install -y curl), or set OMINTY_PACKAGES_SRC=/path/to/packages"
-            url="${OMINTY_PACKAGES_URL:-https://raw.githubusercontent.com/MartinKnights/Ominty/$BRANCH/packages}/$name"
+            url="${OMINTY_PACKAGES_URL:-https://raw.githubusercontent.com/MartinKnights/Ominti-Desktop/$BRANCH/packages}/$name"
             say "  $name: downloading"
             retry "download $name" curl -fL --retry 3 --retry-delay 5 \
                 --connect-timeout 20 --speed-limit 128 --speed-time 120 \

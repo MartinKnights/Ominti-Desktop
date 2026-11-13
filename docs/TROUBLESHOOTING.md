@@ -4,6 +4,21 @@ Symptom → check → fix. Every entry assumes you can open a terminal in the Ni
 session; if the desktop will not start at all, use a TTY (`Ctrl+Alt+F3`) and
 log in there.
 
+## Symptom index
+
+| Symptom | Go to |
+| --- | --- |
+| No bar, or the shell is not running | [The shell (DMS)](#the-shell-dms) |
+| A plugin opens blank or disappeared | [DMS plugins](#dms-plugins) |
+| Media is empty, or a playlist will not play | [Ominty Media](#ominty-media) |
+| Reader has no sound, or its panel is missing | [Ominty Reader](#ominty-reader-text-to-speech) |
+| Dictionary is unavailable | [Ominty Dictionary](#ominty-dictionary) |
+| Dictation opens but types nothing | [Ominty Dictation](#ominty-dictation-speech-to-text) |
+| OCR returns nothing | [Ominty Capture](#ominty-capture-screen-ocr) |
+| The clone or `.deb` download fails | [Downloading the repository](#downloading-the-repository) |
+| A build or the installer fails | [Installer and build](#installer-and-build) |
+| No Niri session, black screen, wrong session | [Session](#session) |
+
 ## Start here
 
 Collect evidence before changing anything:
@@ -366,7 +381,7 @@ A plain `git clone` is one ~30 MB transfer (21 MB of it the bundled `.debs`) and
 cannot resume. Use the bootstrap instead:
 
 ```sh
-curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominty/main/bootstrap.sh
+curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominti-Desktop/main/bootstrap.sh
 bash bootstrap.sh          # run it again if it stops; it continues
 ```
 

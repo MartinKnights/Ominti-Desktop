@@ -1,9 +1,35 @@
-# Installation Guide
+# Installing Ominti-Desktop
 
-This guide covers a **clean install**. If the machine already runs a desktop
-(Cinnamon, GNOME, …) and the user wants to keep any of it, follow
-[`MIGRATION.md`](MIGRATION.md) instead — that path assesses the incumbent
-environment and preserves whatever is not deliberately replaced.
+This guide covers a **clean install** on a machine that should become
+Ominti-Desktop. If the machine already runs a desktop (Cinnamon, GNOME, …) and
+you want to keep any of it, follow [`MIGRATION.md`](MIGRATION.md) first — that
+path assesses the incumbent environment and preserves whatever is not
+deliberately replaced. To update an existing install, jump to
+[Updating](#7-updating).
+
+**Time:** 20–40 minutes on the first install (two source builds); a re-run takes
+a few minutes. **Space:** about 10 GB free under your home directory.
+
+## Choose your path
+
+| I want to… | Read |
+| --- | --- |
+| Install on a clean Debian 13 / LMDE 7 machine | this page, from [Requirements](#requirements) |
+| Migrate a machine that already has Cinnamon/GNOME | [MIGRATION.md](MIGRATION.md), then come back to [Install](#2-install) |
+| Let an AI agent do the install | [PROMPTS.md](PROMPTS.md) and [AGENT-INSTALL.md](AGENT-INSTALL.md) |
+| Update an existing install | [Updating](#7-updating) |
+| Remove Ominti-Desktop | [Uninstall](#uninstall) |
+
+## Before you begin
+
+- **Back up your personal files.** The installer replaces desktop configuration,
+  not documents, but a backup is cheap.
+- **Keep a recovery session.** Do not remove your current desktop session until
+  the new one has logged in successfully.
+- **Read the plan first.** `./install.sh --dry-run` prints every command and
+  changes nothing. Do this before the real install and before every upgrade.
+- **Have a terminal and sudo access.** If the desktop does not start later, you
+  need a TTY (`Ctrl+Alt+F3`) to diagnose it.
 
 ## Requirements
 
@@ -30,7 +56,7 @@ it the prompt in [PROMPTS.md](PROMPTS.md) and it will follow
 ## 1. Clone
 
 ```sh
-curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominty/main/bootstrap.sh
+curl -fsSLO https://raw.githubusercontent.com/MartinKnights/Ominti-Desktop/main/bootstrap.sh
 bash bootstrap.sh
 cd ~/Ominty
 ```
@@ -49,7 +75,7 @@ OMINTY_PACKAGES_SRC=/media/usb/Ominty/packages bash bootstrap.sh
 <details><summary>Plain git instead</summary>
 
 ```sh
-git clone --recurse-submodules https://github.com/MartinKnights/Ominty.git
+git clone --recurse-submodules https://github.com/MartinKnights/Ominti-Desktop.git Ominty
 cd Ominty
 ```
 </details>
@@ -93,6 +119,22 @@ The installer is **idempotent** — re-running it is safe. In order, it:
 
 Existing configuration files are backed up with a
 `.bak-ominty-<timestamp>` suffix before being replaced.
+
+### What success looks like
+
+The installer ends with `Done. Log out and select the 'Niri' session at the
+display manager.` A successful install also leaves:
+
+- `systemctl --user is-active dms` → `active` **after you log in** (not before;
+  the shell needs a graphical session);
+- `ominty registry validate` → `0 error(s), 0 warning(s)`;
+- `niri validate -c ~/.config/niri/config.kdl` → `config is valid`;
+- `ominty inspect` → the desktop layer complete and the terminal layer complete
+  (the two emulator alternatives are optional by design).
+
+If the installer exits non-zero, stop and read the last lines of the log before
+re-running. The shell smoke test is the only step that can fail after everything
+else installed; `scripts/diagnose-dms-shell.sh` is the next step.
 
 ### DMS from source
 
@@ -204,7 +246,7 @@ order with `omi-media sort --in-place <playlist>`; a `.bak-ominty-*` copy is
 kept.
 
 `omi-dict` and `omi-media` are symlinked into `~/.local/bin` (their `bin/`
-scripts resolve `../src` through the symlink). Ominty's six DMS plugins are
+scripts resolve `../src` through the symlink). The six Ominty DMS plugins are
 symlinked from this checkout, so `git pull` updates them.
 
 Third-party DMS plugins are pinned by **exact commit** in
@@ -237,7 +279,7 @@ scripts/verify-parity.py     # actions, plugins, bindings, TTS/STT/media/diction
 ### Third-party plugin patches
 
 `dms plugins restore` (and `dms plugins update`) reset managed plugins to their
-upstream commit, which discards local fixes. Where Ominty needs one, it is kept
+upstream commit, which discards local fixes. Where Ominti-Desktop needs one, it is kept
 as a patch in `ominty-plugins/patches/` and re-applied by `install.sh` after the
 restore:
 
@@ -320,14 +362,14 @@ Choose the emulator with `--terminal`:
 
 > The bundled Niri `.deb` declares `alacritty` as a dependency, so Alacritty is
 > present even when you choose `ghostty` or `none`. `--terminal` decides which
-> emulator Ominty configures and which one `Super+Enter` launches, not what the
+> emulator Ominti-Desktop configures and which one `Super+Enter` launches, not what the
 > Niri package pulls in. On Ubuntu-family systems Ghostty has no package, so
 > choosing it falls back to Alacritty with a warning.
 
 `app.terminal.open` (`Super+Enter`) reads that `terminal` role, so the chosen
 emulator is what the desktop launches.
 
-Zellij autostarts only in a desktop terminal Ominty recognises (Alacritty,
+Zellij autostarts only in a desktop terminal Ominti-Desktop recognises (Alacritty,
 Ghostty, Kitty, WezTerm, Foot, Konsole, or a VTE-based terminal such as GNOME
 Terminal/Tilix), and never inside Zellij, tmux, a Herdr pane, or over SSH (Herdr
 panes inherit `ALACRITTY_WINDOW_ID`, and an unguarded autostart would recurse).
@@ -419,8 +461,8 @@ Or configure it by hand. The shipped default is `none`. To use a local model:
 
 ```sh
 git -C Ominty pull
-# .gitmodules now uses HTTPS; sync an older clone that still points the
-# submodule at git@github.com (otherwise update tries SSH and needs a key).
+# .gitmodules uses HTTPS and the new ominti-core URL; sync an older clone that
+# still points at git@github.com or the old ominty-core repository.
 git -C Ominty submodule sync --recursive
 git -C Ominty submodule update --init --recursive
 ./install.sh        # re-run; configs are backed up and replaced
@@ -455,6 +497,16 @@ once, or pass the path:
 configs/dms/shell-overlay/apply.sh ~/.cache/ominty/build/DankMaterialShell/core/internal/shellembed/dist
 systemctl --user daemon-reload && systemctl --user restart dms.service
 ```
+
+## Next steps
+
+- **Something looks wrong?** Start with [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+  and collect diagnostics before changing anything.
+- **Want to understand the moving parts?** Read
+  [ARCHITECTURE.md](ARCHITECTURE.md) and [GLOSSARY.md](GLOSSARY.md).
+- **Want an AI agent to maintain it?** Follow
+  [AGENT-UPGRADE.md](AGENT-UPGRADE.md).
+- **Need to remove it?** See [Uninstall](#uninstall).
 
 ## Uninstall
 

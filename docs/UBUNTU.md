@@ -1,13 +1,13 @@
 # Ubuntu-family support (source build)
 
-Ominty is **validated on LMDE 7 / Debian 13**. Ubuntu-family systems (Ubuntu,
-and Linux Mint built on Ubuntu) are **supported through a source-build path**;
-`noble` (Ubuntu 24.04 / Mint 22.x) is the validated base, and other Ubuntu
-codenames are installable but reported as unvalidated. This document is the
-support matrix and the runbook.
+Ominti-Desktop is **validated on LMDE 7 / Debian 13**. Ubuntu-family systems
+(Ubuntu, and Linux Mint built on Ubuntu) are **supported through a source-build
+path**; `noble` (Ubuntu 24.04 / Mint 22.x) is the validated base, and other
+Ubuntu codenames are installable but reported as unvalidated. This document is
+the support matrix and the runbook.
 
 > The full migration strategy, including the two-machine process, lives in
-> `Ominty-Migration-Planning.md` (kept with the owner). This file is the
+> `Ominti-Desktop-Migration-Planning.md` (kept with the owner). This file is the
 > repo-side summary.
 
 ## Support matrix
@@ -119,7 +119,7 @@ Source-built DMS embeds a build id; `ominty inspect` reports it under
   source-built packages (`quickshell`, `dms`, `matugen`) with `binary=` names,
   so `ominty inspect` resolves them from `PATH`/`~/.local/bin` and reports
   `"source": "build"` instead of claiming they are missing. `dpkg` still does
-  not know about them, so tools outside Ominty will not see a package version.
+  not know about them, so tools outside Ominti-Desktop will not see a package version.
 - `ominty` still targets the Debian-first layer set; some optional layer
   packages (e.g. `ghostty`, `firefox-esr`) do not exist on Ubuntu-family and are
   skipped.
