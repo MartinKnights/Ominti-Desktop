@@ -1,8 +1,8 @@
 """Playlist discovery (Omi Media Launcher spec §7–§8).
 
 Directory discovery — no database.  A category is a configured directory;
-its playlists are the ``*.m3u``, ``*.m3u8`` and ``*.pls`` files inside it,
-sorted by title (case-insensitive).  Hidden files are ignored.
+its playlists are the ``*.m3u``, ``*.m3u8``, ``*.pls`` and ``*.xspf`` files
+inside it, sorted by title (case-insensitive).  Hidden files are ignored.
 """
 
 from __future__ import annotations
@@ -10,7 +10,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-PLAYLIST_EXTENSIONS = (".m3u", ".m3u8", ".pls")
+PLAYLIST_EXTENSIONS = (".m3u", ".m3u8", ".pls", ".xspf")
 
 
 def is_playlist(path: Path) -> bool:

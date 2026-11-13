@@ -18,12 +18,12 @@ def _make_playlists(tmp_path: Path, names: list[str]) -> Path:
 def test_is_playlist_matches_supported_extensions_case_insensitively(tmp_path):
     d = tmp_path / "p"
     d.mkdir()
-    for n in ("a.m3u", "b.M3U8", "c.pls"):
+    for n in ("a.m3u", "b.M3U8", "c.pls", "d.XSPF"):
         (d / n).write_text("", encoding="utf-8")
     (d / "notes.txt").write_text("", encoding="utf-8")
     (d / ".hidden.m3u").write_text("", encoding="utf-8")
     files = {p.name for p in d.iterdir() if is_playlist(p)}
-    assert files == {"a.m3u", "b.M3U8", "c.pls"}
+    assert files == {"a.m3u", "b.M3U8", "c.pls", "d.XSPF"}
 
 
 def test_discover_playlists_sorted_case_insensitive_and_skips_hidden(tmp_path):

@@ -5,7 +5,7 @@ popup is one presentation layer over this tool; the CLI is the contract.
 
 Playlists live in four configured directories (Audio, Courses, Music,
 Video under a root — `/home/martin/Playlist` by default) and are
-discovered by scanning for `.m3u` / `.m3u8` / `.pls`.  Selecting a
+discovered by scanning for `.m3u` / `.m3u8` / `.pls` / `.xspf`.  Selecting a
 playlist hands the file to that category's configured player.
 """
 

@@ -33,7 +33,7 @@ folder, rename one, or prefix it (`01-Audio`) and the tabs follow on the next
 open — there is nothing else to configure.  A folder with no playlist is
 hidden until it contains one; dot-folders are ignored.
 
-Each folder is scanned for `.m3u`, `.m3u8` and `.pls` files when the popup
+Each folder is scanned for `.m3u`, `.m3u8`, `.pls` and `.xspf` files when the popup
 opens, so dropping a playlist in is the whole import step.
 
 `~/.config/omi/media.toml` is optional and only overrides how a folder is
